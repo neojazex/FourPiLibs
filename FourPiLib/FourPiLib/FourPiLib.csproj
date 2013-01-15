@@ -42,5 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Web\DataDownloader.cs" />
+    <Compile Include="SQLite.cs" />
+    <Compile Include="DateTimeHelper.cs" />
+    <Compile Include="UIImageHelper.cs" />
+    <Compile Include="BBCodeParser.cs" />
   </ItemGroup>
 </Project>

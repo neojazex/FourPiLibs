@@ -75,7 +75,7 @@ namespace FourPiLib.Web
 		}
 
 		// Begin an async data download to a file
-		public void AsyndDownloadToFile(string path)
+		public void AsyncDownloadToFile(string path)
 		{
 			Download(true, path);
 		}
@@ -87,7 +87,7 @@ namespace FourPiLib.Web
 		}
 
 		// Begin a sync data download to file
-		public void SyndDownloadToFile(string path)
+		public void SyncDownloadToFile(string path)
 		{
 			Download(false, path);
 		}
@@ -148,6 +148,7 @@ namespace FourPiLib.Web
 							AsyncDownloadFailed(this, e);
 						}
 					};
+
 					
 					// Not using matching functions, but I'll live.
 					//NSUrlConnection.SendAsynchronousRequest(request, new NSOperationQueue(), connectionDelegate);
@@ -242,7 +243,7 @@ namespace FourPiLib.Web
 				
 				if (AsyncDownloadProgressChanged != null)
 				{
-					AsyncDownloadProgressChanged(this, new AsyncDownloadProgressChanged_EventArgs(progress));
+					AsyncDownloadProgressChanged(this, new AsyncDownloadProgressChanged_EventArgs(progress, bytesReceived, expectedBytes));
 				}
 			}
 			
@@ -284,10 +285,14 @@ namespace FourPiLib.Web
 		public class AsyncDownloadProgressChanged_EventArgs : EventArgs
 		{
 			public float Progress { get; internal set; }
+			public long BytesReceived { get; internal set; }
+			public long TotalBytesToReceive { get; internal set; }
 			
-			public AsyncDownloadProgressChanged_EventArgs(float progress)
+			public AsyncDownloadProgressChanged_EventArgs(float progress, long bytesReceived, long totalBytesToReceive)
 			{
 				this.Progress = progress;
+				this.BytesReceived = bytesReceived;
+				this.TotalBytesToReceive = totalBytesToReceive;
 			}
 		}
 	}
